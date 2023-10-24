@@ -54,7 +54,7 @@ class RenderEngine:
         print("\n"*(self.HEIGHT//14))
 
     def setupParams(self, frame: Image):
-        width, height = frame.size()
+        width, height = frame.size
         self.FRAME_WIDTH, self.FRAME_HEIGHT = width, height
         for y in range(self.FRAME_HEIGHT):
             for x in range(self.FRAME_WIDTH):
