@@ -60,7 +60,7 @@ class RenderEngine:
             for x in range(self.FRAME_WIDTH):
                 self.CURRENT_PIXELS[self.getPosition(x,y)] = None
         self.convertFrame(frame)
-        self.drawFrame()
+        self.drawFrame(self.CURRENT_FRAME)
         self.CURRENT_PIXELS = dict(self.CURRENT_FRAME)
 
     def convertRGBtoBGRA(self, r:int, g:int, b:int) -> bytes:
@@ -75,7 +75,7 @@ class RenderEngine:
                 self.CURRENT_FRAME[self.getPosition(x,y)] = self.convertRGBtoBGRA(*px[x,y])
         frame.close()
 
-    def drawFrame(self) -> None:
+    def drawFrame(self, frame) -> None:
         self.convertFrame(frame)
         cursor = 4
         for y in range(self.FRAME_HEIGHT):
