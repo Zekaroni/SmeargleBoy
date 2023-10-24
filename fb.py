@@ -54,7 +54,11 @@ class RenderEngine:
     def setupParams(self, frame: Image):
         width, height = frame.size()
         self.FRAME_WIDTH, self.FRAME_HEIGHT = width, height
+        for y in range(self.FRAME_HEIGHT):
+            for x in range(self.FRAME_WIDTH):
+                self.CURRENT_PIXELS[self.getPosition(x,y)] = None
         self.convertFrame(frame)
+        self.drawFrame()
         self.CURRENT_PIXELS = dict(self.CURRENT_FRAME)
 
     def convertRGBtoBGRA(self, r:int, g:int, b:int) -> bytes:
