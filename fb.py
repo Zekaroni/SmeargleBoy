@@ -1,3 +1,5 @@
+from PIL import Image
+
 class RenderEngine:
     def __init__(self):
         with open('/sys/class/graphics/fb0/virtual_size') as size_file:

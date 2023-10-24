@@ -1,6 +1,5 @@
-from pyboy import PyBoy, WindowEvent, logger
 from fb import RenderEngine
-from PIL import Image
+from pyboy import PyBoy, WindowEvent, logger
 
 logger.log_level("DISABLE")
 
