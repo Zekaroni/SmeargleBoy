@@ -75,7 +75,7 @@ class RenderEngine:
                 self.CURRENT_FRAME[self.getPosition(x,y)] = self.convertRGBtoBGRA(*px[x,y])
         frame.close()
 
-    def drawFrame(self, frame: Image) -> None:
+    def drawFrame(self) -> None:
         self.convertFrame(frame)
         cursor = 4
         for y in range(self.FRAME_HEIGHT):
