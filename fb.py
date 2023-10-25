@@ -83,4 +83,4 @@ class RenderEngine:
                 lookup_position = self.getPosition(x,y)
                 if self.CURRENT_PIXELS[lookup_position] != self.CURRENT_FRAME[lookup_position]:
                     self.queueLocalChange(x,y,self.CURRENT_FRAME[lookup_position])
-        self.CURRENT_PIXELS = self.CURRENT_FRAME
+        self.CURRENT_PIXELS = dict(self.CURRENT_FRAME)
