@@ -19,7 +19,7 @@ def main():
         frame_count += 1
         if time.time() - start_time >= 1.0:
             fps = frame_count / (time.time() - start_time)
-            print(f"FPS: {fps:.2f}\r", end="")
+            print(f"FPS: {fps:.2f}", end="\r")
             frame_count = 0
             start_time = time.time()
 
