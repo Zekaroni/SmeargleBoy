@@ -24,7 +24,7 @@ class RenderEngine:
 
     def queueLocalChange(self, x: int, y: int, Bytes: bytes) -> None:
         if 0 <= x < self.WIDTH and 0 <= y < self.HEIGHT:
-            position = self.getPosition()
+            position = self.getPosition(x,y)
             self.LOCAL_QUEUE[position] = Bytes
 
     def updateLocalBuffer(self) -> None:
