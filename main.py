@@ -9,6 +9,7 @@ def main():
     pyboy = PyBoy('game.gb', window_type="headless")
     pyboy.tick()
     screen.setupParams(pyboy.screen_image())
+    screen.initTerminal()
 
     frame_count = 0
     start_time = time.time()
