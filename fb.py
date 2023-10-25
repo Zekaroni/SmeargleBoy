@@ -17,7 +17,6 @@ class RenderEngine:
         self.FRAME_HEIGHT = 0
         self.FRAME_WIDTH = 0
         self.PREVIOUS_PIXELS = {}
-        self.CURRENT_PIXELS = {}
     
     def getPosition(self, x:int, y:int) -> int:
         return (y * self.WIDTH + x) * self.BYTES_PER_PIXEL
@@ -69,7 +68,6 @@ class RenderEngine:
                 pos = self.getPosition(x,y)
                 pix = px[x,y]
                 self.PREVIOUS_PIXELS[pos] = pix
-                self.CURRENT_PIXELS[pos] = pix
                 self.queueLocalChange(x,y,self.convertRGBtoBGRA(*px[x,y]))
 
     def drawFrame(self, frame) -> None:
@@ -78,7 +76,7 @@ class RenderEngine:
             for x in range(self.FRAME_WIDTH):
                 lookup_position = self.getPosition(x,y)
                 current_pixel = px[x,y]
-                if self.PREVIOUS_PIXELS[lookup_position] != self.CURRENT_PIXELS[lookup_position]:
+                if self.PREVIOUS_PIXELS[lookup_position] != current_pixel:
                     self.queueLocalChange(x,y,self.convertRGBtoBGRA(*current_pixel))
                     self.PREVIOUS_PIXELS[lookup_position] = current_pixel
         self.PREVIOUS_PIXELS = px
