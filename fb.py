@@ -26,12 +26,6 @@ class RenderEngine:
             position = self.getPosition(x,y)
             self.LOCAL_QUEUE[position] = Bytes
 
-    def writePixel(self, x: int, y: int, Bytes: bytes):
-        if 0 <= x < self.WIDTH and 0 <= y < self.HEIGHT:
-            position = self.getPosition(x,y)
-            self.SYS_VIDEO_BUFFER.seek(position)
-            self.SYS_VIDEO_BUFFER.write(Bytes)
-
     def updateLocalBuffer(self) -> None:
         buffer_list = bytearray(self.LOCAL_BUFFER)
         for byte in buffer_list:
@@ -74,7 +68,6 @@ class RenderEngine:
                 pos = self.getPosition(x,y)
                 pix = px[x,y]
                 self.PREVIOUS_PIXELS[pos] = pix
-                
                 self.queueLocalChange(x,y,self.convertRGBtoBGRA(*px[x,y]))
 
     def drawFrame(self, frame) -> None:
