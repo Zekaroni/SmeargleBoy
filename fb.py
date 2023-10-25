@@ -78,9 +78,8 @@ class RenderEngine:
 
     def drawFrame(self, frame) -> None:
         self.convertFrame(frame)
-        cursor = 4
         for y in range(self.FRAME_HEIGHT):
             for x in range(self.FRAME_WIDTH):
-                if self.CURRENT_PIXELS[self.getPosition(x,y)] != self.CURRENT_FRAME[self.getPosition(x,y)]:
-                    self.queueLocalChange(x,y,self.CURRENT_FRAME)
-                    cursor+=3
+                lookup_position = self.getPosition(x,y)
+                if self.CURRENT_PIXELS[lookup_position] != self.CURRENT_FRAME[lookup_position]:
+                    self.queueLocalChange(x,y,self.CURRENT_FRAME[lookup_position])
