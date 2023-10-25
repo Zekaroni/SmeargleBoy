@@ -29,8 +29,9 @@ class RenderEngine:
 
     def updateLocalBuffer(self) -> None:
         buffer_list = bytearray(self.LOCAL_BUFFER)
+        for byte in buffer_list:
+            if byte > 10: print(byte)
         for position in self.LOCAL_QUEUE:
-            print(buffer_list)
             buffer_list[position:position+self.BYTES_PER_PIXEL] = self.LOCAL_QUEUE[position]
         self.LOCAL_BUFFER = bytes(buffer_list)
         self.LOCAL_QUEUE = {}
