@@ -17,7 +17,7 @@ def main():
 
     while not pyboy.tick():
         screen.drawFrame(pyboy.screen_image())
-        # screen.updateFrameBuffer()
+        screen.updateFrameBuffer()
         frame_count += 1
         if time.time() - start_time >= 1.0:
             fps = frame_count / (time.time() - start_time)
