@@ -12,6 +12,7 @@ def main():
     screen.setupParams(pyboy.screen_image())
     while not pyboy.tick():
         screen.drawFrame(pyboy.screen_image())
+        screen.updateFrameBuffer()
         input()
     pyboy.stop()
 
