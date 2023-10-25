@@ -7,7 +7,7 @@ logger.log_level("DISABLE")
 def main():
     screen = RenderEngine()
     screen.initTerminal()
-    
+
     pyboy = PyBoy('game.gb', window_type="headless")
     pyboy.tick()
     screen.setupParams(pyboy.screen_image())
@@ -17,7 +17,7 @@ def main():
 
     while not pyboy.tick():
         screen.drawFrame(pyboy.screen_image())
-        screen.updateFrameBuffer()
+        # screen.updateFrameBuffer()
         frame_count += 1
         if time.time() - start_time >= 1.0:
             fps = frame_count / (time.time() - start_time)
