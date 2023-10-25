@@ -69,7 +69,6 @@ class RenderEngine:
         return (r + g + b).to_bytes(4,'little')
 
     def convertFrame(self, frame: Image):
-        frame.open()
         px = frame.load()
         for y in range(self.FRAME_HEIGHT):
             for x in range(self.FRAME_WIDTH):
