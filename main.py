@@ -13,7 +13,6 @@ def main():
     while not pyboy.tick():
         screen.drawFrame(pyboy.screen_image())
         screen.updateFrameBuffer()
-        input()
     pyboy.stop()
 
 if __name__ == "__main__":
