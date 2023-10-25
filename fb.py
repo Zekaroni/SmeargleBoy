@@ -84,5 +84,5 @@ class RenderEngine:
                 lookup_position = self.getPosition(x,y)
                 current_pixel = px[x,y]
                 if self.PREVIOUS_PIXELS[lookup_position] != current_pixel:
-                    self.writePixel(x,y,self.convertRGBtoBGRA(*current_pixel))
+                    self.queueLocalChange(x,y,self.convertRGBtoBGRA(*current_pixel))
                     self.PREVIOUS_PIXELS[lookup_position] = current_pixel
