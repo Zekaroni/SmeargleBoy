@@ -14,9 +14,9 @@ class RenderEngine:
         self.LOCAL_BUFFER = self.SYS_VIDEO_BUFFER.read()
         self.LOCAL_QUEUE = {}
 
-        self.CURRENT_FRAME = {}
         self.FRAME_HEIGHT = 0
         self.FRAME_WIDTH = 0
+        self.PREVIOUS_PIXELS = {}
         self.CURRENT_PIXELS = {}
     
     def getPosition(self, x:int, y:int) -> int:
@@ -54,33 +54,29 @@ class RenderEngine:
         print("\x1b[2J\x1b[H",end="")
         self.clearFrameBuffer()
         print("\n"*(self.HEIGHT//14))
-
-    def setupParams(self, frame: Image):
-        width, height = frame.size
-        self.FRAME_WIDTH, self.FRAME_HEIGHT = width, height
-        for y in range(self.FRAME_HEIGHT):
-            for x in range(self.FRAME_WIDTH):
-                self.CURRENT_PIXELS[self.getPosition(x,y)] = None
-        self.convertFrame(frame)
-        self.drawFrame(frame)
-        self.CURRENT_PIXELS = dict(self.CURRENT_FRAME)
-
+    
     def convertRGBtoBGRA(self, r:int, g:int, b:int) -> bytes:
         r = r << (16)
         g = g << (8)
         return (r + g + b).to_bytes(4,'little')
 
-    def convertFrame(self, frame: Image):
+    def setupParams(self, frame: Image):
+        width, height = frame.size
+        px = frame.load()
+        self.FRAME_WIDTH, self.FRAME_HEIGHT = width, height
+        for y in range(self.FRAME_HEIGHT):
+            for x in range(self.FRAME_WIDTH):
+                pos = self.getPosition(x,y)
+                pix = px[x,y]
+                self.PREVIOUS_PIXELS[pos] = pix
+                self.CURRENT_PIXELS[pos] = pix
+                self.queueLocalChange(x,y,self.convertRGBtoBGRA(*px[x,y]))
+
+    def drawFrame(self, frame) -> None:
         px = frame.load()
         for y in range(self.FRAME_HEIGHT):
             for x in range(self.FRAME_WIDTH):
-                self.CURRENT_FRAME[self.getPosition(x,y)] = self.convertRGBtoBGRA(*px[x,y])
-
-    def drawFrame(self, frame) -> None:
-        self.convertFrame(frame)
-        for y in range(self.FRAME_HEIGHT):
-            for x in range(self.FRAME_WIDTH):
                 lookup_position = self.getPosition(x,y)
-                if self.CURRENT_PIXELS[lookup_position] != self.CURRENT_FRAME[lookup_position]:
-                    self.queueLocalChange(x,y,self.CURRENT_FRAME[lookup_position])
-        self.CURRENT_PIXELS = dict(self.CURRENT_FRAME)
+                if self.PREVIOUS_PIXELS[lookup_position] != self.CURRENT_PIXELS[lookup_position]:
+                    self.queueLocalChange(x,y,self.convertRGBtoBGRA(*px[x,y]))
+        self.PREVIOUS_PIXELS = px
