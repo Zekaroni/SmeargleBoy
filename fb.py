@@ -60,7 +60,8 @@ class RenderEngine:
         return (r + g + b).to_bytes(4,'little')
 
     def setupParams(self, frame: Image):
-        width, height = frame.resize((500,500))
+        frame.resize((500,500))
+        width, height = frame.size
         px = frame.load()
         self.FRAME_WIDTH, self.FRAME_HEIGHT = width, height
         for y in range(self.FRAME_HEIGHT):
