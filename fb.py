@@ -60,7 +60,7 @@ class RenderEngine:
         return (r + g + b).to_bytes(4,'little')
 
     def setupParams(self, frame: Image):
-        frame.resize((500,500))
+        frame = frame.resize((500,500))
         width, height = frame.size
         px = frame.load()
         self.FRAME_WIDTH, self.FRAME_HEIGHT = width, height
@@ -72,7 +72,7 @@ class RenderEngine:
                 self.queueLocalChange(x,y,self.convertRGBtoBGRA(*px[x,y]))
 
     def drawFrame(self, frame) -> None:
-        frame.resize((500,500))
+        frame = frame.resize((500,500))
         px = frame.load()
         for y in range(self.FRAME_HEIGHT):
             for x in range(self.FRAME_WIDTH):
