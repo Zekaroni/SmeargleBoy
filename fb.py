@@ -72,7 +72,6 @@ class RenderEngine:
                 self.queueLocalChange(x,y,self.convertRGBtoBGRA(*px[x,y]))
 
     def drawFrame(self, frame) -> None:
-        frame = frame.resize((500,500))
         px = frame.load()
         for y in range(self.FRAME_HEIGHT):
             for x in range(self.FRAME_WIDTH):
