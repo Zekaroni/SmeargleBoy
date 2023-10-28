@@ -13,6 +13,7 @@ def main():
     screen.setupParams(pyboy.screen_image())
 
     frame_count = 0
+    fps = 0
     start_time = time.time()
 
     while not pyboy.tick():
